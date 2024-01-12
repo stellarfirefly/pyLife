@@ -1,8 +1,8 @@
 import pygame
 import bresenham
 
-window_res_x = 805
-window_res_y = 805
+window_res_x = 800
+window_res_y = 800
 grid_size_x = 100
 grid_size_y = 100
 framerate = 60
