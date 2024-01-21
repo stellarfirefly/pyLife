@@ -5,7 +5,7 @@ window_res_x = 800
 window_res_y = 800
 grid_size_x = 100
 grid_size_y = 100
-framerate = 60
+framerate = 10
 
 def draw_cell(cell, x, y, size):
   rect = pygame.Rect(x * size, y * size, size, size)
