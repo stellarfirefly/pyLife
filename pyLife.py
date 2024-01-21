@@ -8,7 +8,7 @@ grid_size_y = 100
 framerate = 60
 
 def draw_cell(cell, x, y, size):
-  rect = pygame.Rect((x * size, y * size, size, size))
+  rect = pygame.Rect(x * size, y * size, size, size)
   if(cell):
     pygame.draw.rect(screen, 'white', rect)
   else:
@@ -18,6 +18,12 @@ def draw_grid(grid):
   for i, row in enumerate(grid):
     for j, cell in enumerate(row):
       draw_cell(cell, i, j, cell_size)
+  if is_paused and i > 3 and j > 3:   # i, j holds x_dim-1, y_dim-1
+    xluc_red = pygame.Color(255, 0, 0, 64)    # translucent red color
+    pause_rect_1 = pygame.Rect(cell_size, cell_size, cell_size, cell_size*3)
+    pause_rect_2 = pygame.Rect(cell_size*3, cell_size, cell_size, cell_size*3)
+    pygame.draw.rect(screen, xluc_red, pause_rect_1)
+    pygame.draw.rect(screen, xluc_red, pause_rect_2)
 
 def is_within_bounds(i, j):
   return i >= 0 and i < grid_size_y and j >= 0 and j < grid_size_x
@@ -86,14 +92,19 @@ old_y = -1
 pygame.init()
 screen = pygame.display.set_mode((window_res_x, window_res_y))
 is_running = True
+is_paused = False
 clock = pygame.time.Clock()
 
 while is_running:
   for event in pygame.event.get():
     if event.type == pygame.QUIT:
       is_running = False
+    if event.type == pygame.KEYUP:
+      if event.key in [pygame.K_SPACE]:
+        is_paused = not is_paused
 
-  grid = compute_new_state(grid)
+  if not is_paused:
+    grid = compute_new_state(grid)
 
   (m1, m2, m3) = pygame.mouse.get_pressed()
   if m3:
