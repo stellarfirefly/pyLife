@@ -99,7 +99,7 @@ while is_running:
   for event in pygame.event.get():
     if event.type == pygame.QUIT:
       is_running = False
-    if event.type == pygame.KEYUP:
+    if event.type == pygame.KEYDOWN:
       if event.key in [pygame.K_SPACE]:
         is_paused = not is_paused
 
